@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "562691267241",
+    "firebase_url": "https://kellogs-60767.firebaseio.com",
+    "project_id": "kellogs-60767",
+    "storage_bucket": "kellogs-60767.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562691267241:android:e237c6041e2e6bc1de27b8",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562691267241-86upcr1akvfkks8f4ht9gjkpfbjh51o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqTsE-OkOKRHdgReVVP3rbtdRRFQFwulg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562691267241-86upcr1akvfkks8f4ht9gjkpfbjh51o4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

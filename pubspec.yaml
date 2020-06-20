@@ -1,0 +1,154 @@
+name: ecommerce
+description: A new Flutter project.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  flutter_svg: ^0.17.3+1
+  after_layout: ^1.0.7+2
+  line_icons: ^0.2.0
+  introduction_screen: ^1.0.7
+  google_maps_flutter: ^0.5.25+2
+  google_map_location_picker: ^3.2.1+2
+  location: ^3.0.1
+  firebase_auth:
+  firebase_core: any
+  barcode_scan: ^1.0.0
+  rounded_loading_button: ^1.0.4
+  cloud_firestore: ^0.13.4+2
+  shared_preferences: ^0.5.6+3
+  flutter_login: ^1.0.14
+  multi_image_picker: ^4.6.5+rc.1
+  firebase_storage: ^3.1.5
+  webview_flutter: ^0.3.19+9
+  carousel_pro: ^1.0.0
+  flutter_webview_plugin: ^0.3.11
+  image_picker: ^0.6.5+3
+  flutter_country_picker: ^0.1.6
+  google_fonts:
+  mailer:
+  flutter_rating_bar: ^3.0.1+1
+  qr_flutter: ^3.2.0
+  awesome_dialog: ^0.1.4
+  flutter_chat: ^0.1.5
+  email_launcher: ^1.0.0
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+   - data/ayuda.json
+   - data/menu_opts.json
+   - data/tarjetas.json
+   - data/servicios.json
+   - assets/icons/home.svg
+   - assets/images/logo_splash.png
+   - assets/images/login.jpg
+   - assets/images/onboardinguno.gif
+   - assets/images/onboardingdos.gif
+   - assets/car_icon.png
+   - assets/2.png
+   - assets/Espera.gif
+   - assets/logoHome.png
+   - assets/images/business.svg
+   - assets/images/CargaMR.png
+   - assets/celular.gif
+   - data/call.json
+   - assets/categories/cat_plom.jpg
+   - assets/categories/cat_alba.jpg
+   - assets/categories/cat_electric.jpg
+   - assets/categories/cat_mechanic.jpg
+   - assets/categories/cat_salud.jpg
+   - assets/categories/cat_carpintero.jpg
+   - assets/images/home.svg
+   - assets/images/1.jpg
+   - assets/images/2.png
+   - assets/images/3.png
+   - assets/images/4.png
+   - assets/images/5.png
+   - assets/images/splash_secreen.png
+   - assets/images/logoMe.png
+   - assets/images/logoMe2.png
+   - assets/home/servicios_urgentes/electrico.png
+   - assets/images/Back.png
+   - assets/images/ServiciosNecesitas.png
+   - assets/images/iconoPer.png
+   - assets/images/prueba22.png
+   - assets/home/servicios_urgentes/estetoscopio.png
+   - assets/home/servicios_urgentes/enfermera.png
+   - assets/home/servicios_urgentes/inyeccion.png
+   - assets/home/servicios_urgentes/ambulancia.png
+   - assets/home/servicios_urgentes/cerrajero.png
+   - assets/home/servicios_urgentes/llave.png
+   - assets/home/servicios_urgentes/gas.png
+   - assets/home/servicios_urgentes/plomeria.png
+   - assets/home/servicios_urgentes/grua.png
+   - assets/home/servicios_urgentes/ponchadura.png
+   - assets/home/servicios_urgentes/gasolina.png
+   - assets/home/servicios_urgentes/bateria.png
+   - assets/home/servicios_urgentes/pintura.png
+   - assets/home/servicios_urgentes/albanil.png
+   - assets/home/servicios_urgentes/varios.png
+   - assets/home/servicios_urgentes/otros.png
+   - assets/home/servicios_urgentes/Veterinario.png
+
+   
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Light.ttf
+  #       - asset: assets/fonts/Roboto-Medium.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
