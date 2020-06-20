@@ -10,6 +10,7 @@ class ValidarCelPage extends StatefulWidget {
 }
 
 class _ValidarCelPageState extends State<ValidarCelPage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String cel;
   String verificationId;
   int longitud;
@@ -24,6 +25,9 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
   }
 
   _nose() async {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Se esta validando.'),
+      ));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     verificationId = prefs.getString('verificationId');
     //print(cel);
@@ -39,6 +43,9 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
       Navigator.pushNamed(context, 'correoPage');
     } else {
       print("Error");
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Hubo un error.'),
+      ));
     }
   }
 
@@ -53,6 +60,7 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(59, 164, 171, 0.9),
         title: Text('Proceso de validación'),

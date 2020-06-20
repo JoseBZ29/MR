@@ -32,11 +32,13 @@ class _PasswordPageState extends State<PasswordPage> {
     }
 
     form.save();
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Registrando....'),
+      ));
     String celular = prefs.getString('celular');
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    final userid = user.uid;
     String correo = prefs.getString('correo');
-    await Firestore.instance.collection('Usuarios').document(userid).setData({
+    await Firestore.instance.collection('Usuarios').document().setData({
       'Contraseña': '$_password',
       'Celular': '$celular',
       'Correo': '$correo'

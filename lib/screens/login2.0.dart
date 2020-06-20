@@ -21,7 +21,8 @@ class _Login2PageState extends State<Login2Page> {
   bool _isLogin = false;
 
   _login() async {
-    if (_isLogin) return;
+    try{
+      if (_isLogin) return;
     setState(() {
       _isLogin = true;
     });
@@ -53,6 +54,7 @@ class _Login2PageState extends State<Login2Page> {
     });
     await Future.delayed(Duration(seconds: 3));
     print(pass);
+    print(celular);
     print(password);
     if (pass == password) {
       SharedPreferences pref=await SharedPreferences.getInstance();
@@ -64,6 +66,9 @@ class _Login2PageState extends State<Login2Page> {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Error, la informacion es incorrecta.'),
       ));
+    }
+    }catch(e){
+      print(e);
     }
   }
 
@@ -181,7 +186,7 @@ class _Login2PageState extends State<Login2Page> {
                             bottom: MediaQuery.of(context).size.height / 45),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () async {
+                        onPressed: () {
                           _login();
                         },
                       )

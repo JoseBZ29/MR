@@ -37,6 +37,7 @@ class _RegistroCel2PageState extends State<RegistroCel2Page> {
     print('Celular: $_celular2');
     prefs.setString('celular', _celular);
     FirebaseAuth _auth = FirebaseAuth.instance;
+    print('asasa');
     _auth.verifyPhoneNumber(
         phoneNumber: _celular2,
         timeout: Duration(seconds: 60),
@@ -50,7 +51,7 @@ class _RegistroCel2PageState extends State<RegistroCel2Page> {
           if (user != null) {
             FirebaseAuth.instance.signOut();
             //globals.celular=phone;
-            //Navigator.pushNamed(context, 'register2');
+            Navigator.pushNamed(context, 'correoPage');
           } else {
             print("Error");
           }
@@ -58,7 +59,9 @@ class _RegistroCel2PageState extends State<RegistroCel2Page> {
           //This callback would gets called when verification is done auto maticlly
         },
         verificationFailed: (AuthException exception) {
-          print(exception);
+          print('error');
+          print(exception.code);
+          print(exception.message);
         },
         codeSent: (String verificationId, [int forceResendingToken]) {
           prefs.setString('verificationId', verificationId);
