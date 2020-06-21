@@ -8,6 +8,7 @@ import 'package:ecommerce/widgets/my_page_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/bottom_menu.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,12 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
 
   int currentPage = 0;
-  
+  String iden;
+   identificador() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    iden = pref.getString('identificadorUser');
+    print(iden);
+  }
 
   //PageController _pageViewController;
   final _menu = [

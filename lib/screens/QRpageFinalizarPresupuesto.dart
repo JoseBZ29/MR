@@ -79,6 +79,7 @@ class _QRPageFinalizarPresupuestoState extends State<QRPageFinalizarPresupuesto>
                 doc.reference.delete();
               }
             });
+            pref.setBool('servicioEnCursoPresupuesto', false);
           Navigator.pushReplacementNamed(context, 'home_page');
         },
         btnOkIcon: Icons.check_circle,

@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 
 class DataSearch extends SearchDelegate {
   String selected;
+  List profecion=[];
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -58,8 +59,9 @@ class DataSearch extends SearchDelegate {
                 return new ListTile(
                     title: new Text(document['Profecion']),
                     onTap: () {
+                      profecion.add(document['Profecion']);
                       Navigator.pushNamed(context, 'service_details',
-                          arguments: document['Profecion']);
+                          arguments: profecion);
                     });
               }).toList(),
             );

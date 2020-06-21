@@ -14,7 +14,7 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
   String cel;
   String verificationId;
   int longitud;
-  String ultimosDigitos;
+  String ultimosDigitos='';
   final _codeController = TextEditingController();
 
   @override

@@ -83,6 +83,7 @@ class _QRPageFinalizarState extends State<QRPageFinalizar> {
                 doc.reference.delete();
               }
             });
+            pref.setBool('servicioEnCurso', false);
             Navigator.pushReplacementNamed(context, 'home_page');
           },
           btnOkIcon: Icons.check_circle,

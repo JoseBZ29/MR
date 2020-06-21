@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/qr.dart';
+import 'package:ecommerce/screens/precio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,9 +77,11 @@ class _PagoCotizacionState extends State<PagoCotizacion> {
 
   @override
   Widget build(BuildContext context) {
+    final Precio args = ModalRoute.of(context).settings.arguments;
+    double precio=args.precio;
     return WebviewScaffold(
       key: scaffoldKey,
-      url: 'https://ecommercev2.000webhostapp.com/formulario2.php?amount=100',
+      url: 'https://ecommercev2.000webhostapp.com/formulario2.php?amount=$precio',
       hidden: true,
       appBar: AppBar(
         title: Text("Pago en Curso"),

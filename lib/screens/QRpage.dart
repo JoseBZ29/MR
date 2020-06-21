@@ -65,8 +65,10 @@ class _QRPageState extends State<QRPage> {
         btnOkText: 'Entendido',
         dismissOnTouchOutside: false,
         desc:'El codigo QR se ha validado, en este momento el servicio empezara.',
-        btnOkOnPress: () {
+        btnOkOnPress: () async {
           debugPrint('OnClcik');
+          SharedPreferences prefs=await SharedPreferences.getInstance();
+          prefs.setBool('servicioEnCurso', true);
           Navigator.pushReplacementNamed(context, 'servicioEnCurso');
         },
         btnOkIcon: Icons.check_circle,

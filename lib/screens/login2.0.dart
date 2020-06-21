@@ -14,6 +14,7 @@ class _Login2PageState extends State<Login2Page> {
   var password;
   String celular;
   String pass;
+  String correo;
   String identificador;
   List usuario;
   final _formKey = GlobalKey<FormState>();
@@ -21,53 +22,55 @@ class _Login2PageState extends State<Login2Page> {
   bool _isLogin = false;
 
   _login() async {
-    try{
+    try {
       if (_isLogin) return;
-    setState(() {
-      _isLogin = true;
-    });
-
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text('Iniciando Session....'),
-    ));
-
-    final form = _formKey.currentState;
-
-    if (!form.validate()) {
-      _scaffoldKey.currentState.hideCurrentSnackBar();
       setState(() {
-        _isLogin = false;
+        _isLogin = true;
       });
-      return;
-    }
-    form.save();
-    print('holla');
-    Firestore.instance
-        .collection('Usuarios')
-        .where("Celular", isEqualTo: celular)
-        .snapshots()
-        .listen((data) {
-      data.documents.forEach((doc) {
-        pass = doc["Contraseña"];
-        identificador=doc.documentID;
-      });
-    });
-    await Future.delayed(Duration(seconds: 3));
-    print(pass);
-    print(celular);
-    print(password);
-    if (pass == password) {
-      SharedPreferences pref=await SharedPreferences.getInstance();
-      pref.setString('identificadorUser', identificador);
-      pref.setString('identificador', identificador);
-      pref.setBool('registrado', true);
-      Navigator.pushReplacementNamed(context, 'home_page');
-    } else {
+
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Error, la informacion es incorrecta.'),
+        content: Text('Iniciando Session....'),
       ));
-    }
-    }catch(e){
+
+      final form = _formKey.currentState;
+
+      if (!form.validate()) {
+        _scaffoldKey.currentState.hideCurrentSnackBar();
+        setState(() {
+          _isLogin = false;
+        });
+        return;
+      }
+      form.save();
+      print('holla');
+      Firestore.instance
+          .collection('Usuarios')
+          .where("Celular", isEqualTo: celular)
+          .snapshots()
+          .listen((data) {
+        data.documents.forEach((doc) {
+          pass = doc["Contraseña"];
+          identificador = doc.documentID;
+          correo=doc['Correo'];
+        });
+      });
+      await Future.delayed(Duration(seconds: 3));
+      print(pass);
+      print(celular);
+      print(password);
+      if (pass == password) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('identificadorUser', identificador);
+        pref.setString('identificador', identificador);
+        pref.setString('correo', correo);
+        pref.setBool('registrado', true);
+        Navigator.pushReplacementNamed(context, 'home_page');
+      } else {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text('Error, la informacion es incorrecta.'),
+        ));
+      }
+    } catch (e) {
       print(e);
     }
   }
@@ -86,7 +89,7 @@ class _Login2PageState extends State<Login2Page> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: screenHeight / 2.3),
+          margin: EdgeInsets.only(top: screenHeight / 2.4),
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Card(
             shape: RoundedRectangleBorder(
@@ -189,7 +192,22 @@ class _Login2PageState extends State<Login2Page> {
                         onPressed: () {
                           _login();
                         },
-                      )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, 'register2.0');
+                        },
+                        child: Text(
+                          "¿No tienes cuenta?",
+                          style: TextStyle(
+                              color: Color.fromRGBO(59, 164, 171, 0.9)),
+                        ),
+                      ),
                     ],
                   )
                 ],

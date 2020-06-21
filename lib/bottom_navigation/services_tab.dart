@@ -6,6 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServicesTab extends StatefulWidget {
+  String iden;
   @override
   _ServicesTabState createState() => _ServicesTabState();
 }

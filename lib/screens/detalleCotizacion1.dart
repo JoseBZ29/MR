@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/identificadorCotizacion.dart';
 import 'package:ecommerce/identificadorEspera.dart';
+import 'package:ecommerce/screens/precio.dart';
 import 'package:ecommerce/widgets/webView_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -33,7 +34,8 @@ class _DetalleCotizacionPageState extends State<DetalleCotizacionPage> {
         prefs.setString('pedido', identificador);
         print('Identificador chat $identificador');
         pref.setString('IdenCot', identificador);
-        Navigator.pushNamed(context, 'pagoCotizacion');
+        
+        Navigator.pushNamed(context, 'pagoCotizacion',arguments: Precio(double.parse(precio)));
   }
 
   cancelar(identificador) async {

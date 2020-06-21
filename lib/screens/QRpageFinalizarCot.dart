@@ -79,6 +79,7 @@ class _QRPageFinalizarCotState extends State<QRPageFinalizarCot> {
                 doc.reference.delete();
               }
             });
+            pref.setBool('servicioEnCursoCotizacion', false);
           Navigator.pushReplacementNamed(context, 'home_page');
         },
         btnOkIcon: Icons.check_circle,

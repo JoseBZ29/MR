@@ -102,8 +102,10 @@ class _ProfileTabState extends State<ProfileTab> {
     final salir = ListTile(
       title: Text('Salir'),
       leading: getIcon('quienesSomos'),
-      onTap: () {
-
+      onTap: () async {
+        SharedPreferences prefs=await SharedPreferences.getInstance();
+        //bool registrado = prefs.getBool('registrado') ?? false;
+        prefs.setBool('registrado', false);
         Navigator.pushReplacementNamed(context, 'register2.0');
       },
     );
