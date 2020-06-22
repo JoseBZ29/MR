@@ -124,8 +124,8 @@ class _ServicioEnCursoPageState extends State<ServicioEnCursoPage> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 80,
                       bottom: MediaQuery.of(context).size.height / 80,
-                      left: MediaQuery.of(context).size.height / 5.5,
-                      right: MediaQuery.of(context).size.height / 5.5),
+                      left: MediaQuery.of(context).size.height / 6,
+                      right: MediaQuery.of(context).size.height / 6),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
                   color: Color.fromRGBO(173, 49, 56, 1),
@@ -150,8 +150,8 @@ class _ServicioEnCursoPageState extends State<ServicioEnCursoPage> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 80,
                       bottom: MediaQuery.of(context).size.height / 80,
-                      left: MediaQuery.of(context).size.height / 14,
-                      right: MediaQuery.of(context).size.height / 14),
+                      left: MediaQuery.of(context).size.height / 15,
+                      right: MediaQuery.of(context).size.height / 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
                   color: Colors.orange,
@@ -189,8 +189,8 @@ class _ServicioEnCursoPageState extends State<ServicioEnCursoPage> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height / 80,
                       bottom: MediaQuery.of(context).size.height / 80,
-                      left: MediaQuery.of(context).size.height / 14,
-                      right: MediaQuery.of(context).size.height / 14),
+                      left: MediaQuery.of(context).size.height / 15,
+                      right: MediaQuery.of(context).size.height / 15),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
                   color: Color.fromRGBO(54, 77, 108, 1),

@@ -168,8 +168,8 @@ class _QRPageFinalizarState extends State<QRPageFinalizar> {
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.width / 30,
                 bottom: MediaQuery.of(context).size.width / 30,
-                left: MediaQuery.of(context).size.height / 6,
-                right: MediaQuery.of(context).size.height / 6),
+                left: MediaQuery.of(context).size.height / 7,
+                right: MediaQuery.of(context).size.height / 7),
             color: Color.fromRGBO(59, 164, 171, 1),
             onPressed: () {
               validar();
