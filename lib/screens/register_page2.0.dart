@@ -80,14 +80,14 @@ class _Register20PageState extends State<Register20Page> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Al continuar con el proceso de registro aceptas nuestro Terminos y Condiciones asi como nuestro Aviso de Privacidad.',
+                              'Al continuar con el proceso de registro aceptas nuestro Términos y Condiciones así como nuestro Aviso de Privacidad.',
                               textAlign: TextAlign.center,
                             ),
                             FlatButton(
                                 onPressed: () {
                                   _launchURL();
                                 },
-                                child: Text('Ver Terminos y Condiciones')),
+                                child: Text('Ver Términos y Condiciones')),
                             FlatButton(
                                 onPressed: () {
                                   _launchURL2();

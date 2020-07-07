@@ -49,9 +49,9 @@ class _HomeServiceDetailsState extends State<HomeServiceDetails> {
             arguments: IdentificadorEspera(identificador, randomNumber));
       } else {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
-          duration: Duration(seconds:10),
-        content: Text('La descripción y la ubicación es necesaria.'),
-      ));
+          duration: Duration(seconds: 10),
+          content: Text('La descripción y la ubicación es necesaria.'),
+        ));
       }
     } catch (e) {
       print(e);
@@ -63,7 +63,7 @@ class _HomeServiceDetailsState extends State<HomeServiceDetails> {
     final List<String> serviceInfo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(59, 164, 171, 0.9),
           title: Text(serviceInfo[0]),
@@ -82,7 +82,7 @@ class _HomeServiceDetailsState extends State<HomeServiceDetails> {
                         Container(
                           padding: EdgeInsets.all(15),
                           child: Text(
-                              'Para solicitar un servicio rápido solo tienes que seleccionar la ubicación y nosotros buscaremos a un prestador de servicios para ti'),
+                              'Éste es un servicio emergente, por lo que necesitarás registrar el detalle de tu urgencia.'),
                         ),
                         _descriptionTextField(),
                         SelectLocation()

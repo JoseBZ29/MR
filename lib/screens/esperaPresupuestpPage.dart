@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/identificadorEspera.dart';
 import 'package:ecommerce/screens/precio.dart';
@@ -17,22 +18,31 @@ class EsperaPresupuestoPage extends StatefulWidget {
 }
 
 class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
-  aceptar(identificador,precio,prestador,pedido,iden2) async {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      modal();
+    });
+  }
+
+  aceptar(identificador, precio, prestador, pedido, iden2) async {
     await Firestore.instance
         .collection('PedidosPresupuesto')
         .document(identificador)
-        .updateData({"EstadoPedido": "aceptado","EstadoPago":"pendiente"});
-        SharedPreferences prefs= await SharedPreferences.getInstance();
-        prefs.setString('Identificador', identificador);
-        prefs.setString('Precio', precio);
-        prefs.setString('peerID', prestador);
-        prefs.setString('ide2', iden2);
-        prefs.setInt('pedido', pedido);
-        print('Identificador chat $identificador');
-        SharedPreferences pref=await SharedPreferences.getInstance();
-        //pref.setString('pedido', identificador);
-        
-        Navigator.pushNamed(context, 'pagoPagePresupuesto',arguments: Precio(double.parse(precio)));
+        .updateData({"EstadoPedido": "aceptado", "EstadoPago": "pendiente"});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('Identificador', identificador);
+    prefs.setString('Precio', precio);
+    prefs.setString('peerID', prestador);
+    prefs.setString('ide2', iden2);
+    prefs.setInt('pedido', pedido);
+    print('Identificador chat $identificador');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    //pref.setString('pedido', identificador);
+
+    Navigator.pushNamed(context, 'pagoPagePresupuesto',
+        arguments: Precio(double.parse(precio)));
   }
 
   cancelar(identificador) async {
@@ -46,13 +56,33 @@ class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
     });
   }
 
+  modal() async {
+    AwesomeDialog(
+        context: context,
+        animType: AnimType.BOTTOMSLIDE,
+        headerAnimationLoop: true,
+        dialogType: DialogType.INFO,
+        btnOkColor: Color.fromRGBO(59, 164, 171, 1),
+        tittle: 'Notificación',
+        btnOkText: 'Entendido',
+        dismissOnTouchOutside: false,
+        desc: 'Esperando a que un Profesional de Servicos mande su cotización',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+        },
+        btnOkIcon: Icons.check_circle,
+        onDissmissCallback: () {
+          debugPrint('Dialog Dissmiss from callback');
+        }).show();
+  }
+
   double screenHeight;
 
   @override
   Widget build(BuildContext context) {
     final IdentificadorEspera args = ModalRoute.of(context).settings.arguments;
-    int pedido=args.pedido;
-    String iden2=args.identificador;
+    int pedido = args.pedido;
+    String iden2 = args.identificador;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -77,31 +107,41 @@ class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
                 padding: EdgeInsets.all(10),
                 children:
                     snapshot.data.documents.map((DocumentSnapshot document) {
-                      if(document['Presupuesto']=='true'){
-                  return Container(
-                    child: SingleChildScrollView(
-                      child: Stack(
+                  if (document['Presupuesto'] == 'true') {
+                    return Container(
+                      child: SingleChildScrollView(
+                        child: Stack(
+                          children: <Widget>[
+                            //Text('se acepto')
+                            upperHalf(context),
+                            list(
+                                context,
+                                document['Nombre'],
+                                document['Calificacion'],
+                                document['Total'],
+                                document['DetallesServicio'],
+                                document.documentID,
+                                pedido,
+                                iden2,
+                                document['Prestador']),
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Column(
                         children: <Widget>[
-                          //Text('se acepto')
-                          upperHalf(context),
-                          list(context, document['Nombre'],
-                              document['Calificacion'], document['Total'],document['DetallesServicio'],document.documentID,pedido,iden2,document['Prestador']),
+                          Text(
+                              'Esperando a que un Profesional de Servicios mande su cotización'),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 10),
+                              child: Image.asset('assets/Espera.gif'))
                         ],
                       ),
-                    ),
-                  );
-                      }else{
-                        return Center(
-                          child: Column(
-                            children: <Widget>[
-                              Text('Esperando a que un Profesional mande su cotización'),
-                              Container(
-                                padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/10),
-                                child: Image.asset('assets/Espera.gif'))
-                            ],
-                          ),
-                        );
-                      }
+                    );
+                  }
                 }).toList(),
               );
           }
@@ -121,7 +161,8 @@ class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
     );
   }
 
-  Widget list(BuildContext context, nombre, calificacion, precio,detalles,identificador,pedido,iden2,prestador) {
+  Widget list(BuildContext context, nombre, calificacion, precio, detalles,
+      identificador, pedido, iden2, prestador) {
     return Container(
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.height / 60,
@@ -186,8 +227,9 @@ class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
             ),
           ),
           Container(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 30,bottom: MediaQuery.of(context).size.height/30),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 30,
+                bottom: MediaQuery.of(context).size.height / 30),
             child: Text(
               precio,
               style: TextStyle(
@@ -197,33 +239,53 @@ class _EsperaPresupuestoPageState extends State<EsperaPresupuestoPage> {
           ),
           //_descriptionTextField(detalles),
           Container(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/30),
-            child: Text('Al aceptar enviarás la ubicación del servicio',style: TextStyle(color:Color.fromRGBO(59, 164, 171, 0.9),fontSize: MediaQuery.of(context).size.height/50),),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 30),
+            child: Text(
+              'Al aceptar enviarás la ubicación del servicio',
+              style: TextStyle(
+                  color: Color.fromRGBO(59, 164, 171, 0.9),
+                  fontSize: MediaQuery.of(context).size.height / 50),
+            ),
           ),
           Container(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/15),
-            child: FlatButton(onPressed: (){
-              print(iden2);
-              print(pedido);
-              Navigator.pushNamed(context, 'listaMateriales',arguments:Pedido(iden2,pedido));
-            }, child: Text('Ver la lista de materiales',style: TextStyle(color:Color.fromRGBO(59, 164, 171, 0.9),fontSize: MediaQuery.of(context).size.height/50))),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 15),
+            child: FlatButton(
+                onPressed: () {
+                  print(iden2);
+                  print(pedido);
+                  Navigator.pushNamed(context, 'listaMateriales',
+                      arguments: Pedido(iden2, pedido));
+                },
+                child: Text('Ver la lista de materiales',
+                    style: TextStyle(
+                        color: Color.fromRGBO(59, 164, 171, 0.9),
+                        fontSize: MediaQuery.of(context).size.height / 50))),
           ),
           Container(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/10),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 FlatButton(
-                  child: Text('Cancelar',style: TextStyle(color:Colors.white),),
-                  onPressed: (){
+                  child: Text(
+                    'Cancelar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
                     cancelar(identificador);
                   },
                   color: Colors.red,
                 ),
                 FlatButton(
-                  child: Text('Aceptar',style: TextStyle(color:Colors.white),),
-                  onPressed: (){
-                    aceptar(identificador,precio,prestador,pedido,iden2);
+                  child: Text(
+                    'Aceptar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    aceptar(identificador, precio, prestador, pedido, iden2);
                   },
                   color: Color.fromRGBO(59, 164, 171, 0.9),
                 )

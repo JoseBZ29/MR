@@ -18,7 +18,9 @@ class _ServicesTabState extends State<ServicesTab>
   String iden = '';
   identificador() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    iden = pref.getString('identificadorUser');
+    setState(() {
+      iden = pref.getString('identificadorUser');
+    });
     print(iden);
   }
 
@@ -42,14 +44,24 @@ class _ServicesTabState extends State<ServicesTab>
         indicatorColor: Colors.indigoAccent,
         controller: controller,
         tabs: [
-          
-          Tab(child: Text('Pedidos pendientes',style: TextStyle(color:Colors.black),),),
-          Tab(child: Text('Pedidos en curso',style: TextStyle(color:Colors.black),),)
+          Tab(
+            child: Text(
+              'Pedidos pendientes',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          Tab(
+            child: Text(
+              'Pedidos en curso',
+              style: TextStyle(color: Colors.black),
+            ),
+          )
         ],
       ),
-      body: new TabBarView(
-          controller: controller,
-          children: <Widget>[ new terminados.Terminados(iden), new encurso.Curso(iden)]),
+      body: new TabBarView(controller: controller, children: <Widget>[
+        new terminados.Terminados(iden),
+        new encurso.Curso(iden)
+      ]),
     );
   }
 }

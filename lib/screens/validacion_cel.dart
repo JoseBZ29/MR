@@ -14,7 +14,7 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
   String cel;
   String verificationId;
   int longitud;
-  String ultimosDigitos='';
+  String ultimosDigitos = '';
   final _codeController = TextEditingController();
 
   @override
@@ -26,8 +26,8 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
 
   _nose() async {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Se esta validando.'),
-      ));
+      content: Text('Se esta validando.'),
+    ));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     verificationId = prefs.getString('verificationId');
     //print(cel);
@@ -98,7 +98,7 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
                       left: MediaQuery.of(context).size.width / 15,
                       right: MediaQuery.of(context).size.width / 15),
                   child: Text(
-                      'Contiene el código de seguridad para validar su celular',
+                      'Contiene el código de seguridad para validar tu número celular',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height / 45,
@@ -158,6 +158,4 @@ class _ValidarCelPageState extends State<ValidarCelPage> {
       ],
     );
   }
-
-  
 }

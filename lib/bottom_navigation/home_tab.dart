@@ -14,22 +14,19 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
-    String nombre;
- @override
+  String nombre;
+  @override
   void initState() {
     super.initState();
     init();
   }
 
-   init() async{
+  init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    nombre = prefs.getString('nombre') ?? 'Nombre';
-    setState(() {
-      
-    });
+    nombre = prefs.getString('nombre') ?? '';
+    setState(() {});
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final List<String> images = [
@@ -40,7 +37,6 @@ class _HomeTabState extends State<HomeTab> {
       "assets/images/5.png",
     ];
 
-    
     return Container(
         child: Column(
       children: <Widget>[
@@ -54,7 +50,7 @@ class _HomeTabState extends State<HomeTab> {
                     height: 200.0,
                     width: double.infinity,
                     child: Carousel(
-                      autoplayDuration: Duration(seconds: images.length+2) ,
+                      autoplayDuration: Duration(seconds: images.length + 2),
                       animationDuration: Duration(milliseconds: 500),
                       images: images.map(
                         (url) {
@@ -70,8 +66,6 @@ class _HomeTabState extends State<HomeTab> {
                       dotBgColor: Colors.black.withOpacity(0.5),
                       borderRadius: true,
                     )),
-                
-                
                 UrgentServices(
                   r: 59,
                   g: 164,
@@ -83,16 +77,14 @@ class _HomeTabState extends State<HomeTab> {
                     'assets/home/servicios_urgentes/inyeccion.png',
                     'assets/home/servicios_urgentes/ambulancia.png'
                   ],
-
                   serviceTitle: <String>[
                     'Veterinario',
                     'Enfermería',
                     'Inyecciones',
                     'Ambulancia',
-                  ], titulo: 'Salud',
-
+                  ],
+                  titulo: 'Salud',
                 ),
-
                 UrgentServices(
                   r: 154,
                   g: 115,
@@ -109,7 +101,8 @@ class _HomeTabState extends State<HomeTab> {
                     'Cerrajero',
                     'Fuga de gas',
                     'Fontanero',
-                  ], titulo: 'Urgencia',
+                  ],
+                  titulo: 'Urgencia',
                 ),
                 UrgentServices(
                   r: 202,
@@ -127,7 +120,8 @@ class _HomeTabState extends State<HomeTab> {
                     'Ponchadura',
                     'Gasolina',
                     'Batería',
-                  ], titulo: 'Emergencia',
+                  ],
+                  titulo: 'Emergencia',
                 ),
                 UrgentServices(
                   r: 80,
@@ -145,9 +139,9 @@ class _HomeTabState extends State<HomeTab> {
                     'Construcción',
                     'Electricista',
                     'Otros',
-                  ], titulo: 'Servicios',
+                  ],
+                  titulo: 'Servicios',
                 ),
-                
               ],
             ),
           ),

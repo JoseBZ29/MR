@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/identificadorEspera.dart';
+import 'package:ecommerce/prestador.dart';
 import 'package:ecommerce/screens/precio.dart';
 import 'package:ecommerce/widgets/webView_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +17,30 @@ class EsperaPage extends StatefulWidget {
 }
 
 class _EsperaPageState extends State<EsperaPage> {
-  aceptar(identificador,precio,iden2,pedido,prestador) async {
+  double costos;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      modal();
+    });
+  }
+
+  aceptar(identificador, precio, iden2, pedido, prestador) async {
     await Firestore.instance
         .collection('PedidosUrgentes')
         .document(identificador)
-        .updateData({"EstadoPedido": "aceptado","EstadoPago":"pendiente"});
-        SharedPreferences prefs= await SharedPreferences.getInstance();
-        prefs.setString('Identificador', identificador);
-        prefs.setString('Precio', precio);
-        prefs.setString('iden2', iden2);
-        prefs.setString('pedido2', pedido.toString());
-        prefs.setString('peerID', prestador);
-        
-        Navigator.pushNamed(context, 'pagoPage',arguments: Precio(double.parse(precio)));
+        .updateData({"EstadoPedido": "aceptado", "EstadoPago": "pendiente"});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('Identificador', identificador);
+    prefs.setString('Precio', precio);
+    prefs.setString('iden2', iden2);
+    prefs.setString('pedido2', pedido.toString());
+    prefs.setString('peerID', prestador);
+
+    Navigator.pushNamed(context, 'pagoPage',
+        arguments: Precio(double.parse(precio)));
   }
 
   cancelar(identificador) async {
@@ -39,6 +52,26 @@ class _EsperaPageState extends State<EsperaPage> {
       "Disponible": "true",
       "EstadoPedido": "denegado"
     });
+  }
+
+  modal() async {
+    AwesomeDialog(
+        context: context,
+        animType: AnimType.BOTTOMSLIDE,
+        headerAnimationLoop: true,
+        dialogType: DialogType.INFO,
+        btnOkColor: Color.fromRGBO(59, 164, 171, 1),
+        tittle: 'Notificación',
+        btnOkText: 'Entendido',
+        dismissOnTouchOutside: false,
+        desc: 'Esperando a que un Profesional de Servicos mande su cotización',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+        },
+        btnOkIcon: Icons.check_circle,
+        onDissmissCallback: () {
+          debugPrint('Dialog Dissmiss from callback');
+        }).show();
   }
 
   double screenHeight;
@@ -70,30 +103,40 @@ class _EsperaPageState extends State<EsperaPage> {
                 padding: EdgeInsets.all(10),
                 children:
                     snapshot.data.documents.map((DocumentSnapshot document) {
-                      if(document['Cotizacion']=='true'){
-                  return Container(
-                    child: SingleChildScrollView(
-                      child: Stack(
+                  if (document['Cotizacion'] == 'true') {
+                    return Container(
+                      child: SingleChildScrollView(
+                        child: Stack(
+                          children: <Widget>[
+                            upperHalf(context),
+                            list(
+                                context,
+                                document['Nombre'],
+                                document['Calificacion'],
+                                document['Precio'],
+                                document['DetallesServicio'],
+                                document.documentID,
+                                args.identificador,
+                                args.pedido,
+                                document['Prestador']),
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Column(
                         children: <Widget>[
-                          upperHalf(context),
-                          list(context, document['Nombre'],
-                              document['Calificacion'], document['Precio'],document['DetallesServicio'],document.documentID,args.identificador,args.pedido,document['Prestador']),
+                          Text(
+                              'Esperando a que un Profesional de Servicos mande su cotización'),
+                          Container(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 10),
+                              child: Image.asset('assets/Espera.gif'))
                         ],
                       ),
-                    ),
-                  );
-                      }else{
-                        return Center(
-                          child: Column(
-                            children: <Widget>[
-                              Text('Esperando a que un Profesional mande su cotización'),
-                              Container(
-                                padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/10),
-                                child: Image.asset('assets/Espera.gif'))
-                            ],
-                          ),
-                        );
-                      }
+                    );
+                  }
                 }).toList(),
               );
           }
@@ -113,7 +156,9 @@ class _EsperaPageState extends State<EsperaPage> {
     );
   }
 
-  Widget list(BuildContext context, nombre, calificacion, precio,detalles,identificador,iden2,pedido,prestador) {
+  Widget list(BuildContext context, nombre, calificacion, precio, detalles,
+      identificador, iden2, pedido, prestador) {
+    costos = double.parse(precio) - 25;
     return Container(
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.height / 60,
@@ -168,46 +213,90 @@ class _EsperaPageState extends State<EsperaPage> {
                     }
                   },
                 ),
-                Text(
-                  'Me Recomiendan 91',
-                  style: TextStyle(
-                    color: Color.fromRGBO(59, 164, 171, 0.9),
+                GestureDetector(
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('PrestadorImg', prestador);
+                    Navigator.pushNamed(context, 'trabajosImg',
+                        arguments: Prestador(prestador));
+                  },
+                  child: Text(
+                    'Trabajos',
+                    style: TextStyle(
+                      color: Color.fromRGBO(59, 164, 171, 0.9),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 30,bottom: MediaQuery.of(context).size.height/30),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 30,
+                bottom: MediaQuery.of(context).size.height / 60),
             child: Text(
-              precio,
+              'Usted pagará: \$' + precio,
               style: TextStyle(
                   color: Color.fromRGBO(59, 164, 171, 0.9),
-                  fontSize: MediaQuery.of(context).size.height / 20),
+                  fontSize: MediaQuery.of(context).size.height / 30),
             ),
           ),
+          Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height / 100,
+                  bottom: MediaQuery.of(context).size.height / 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Costo: \$' + costos.toString(),
+                    style: TextStyle(
+                        color: Color.fromRGBO(59, 164, 171, 0.9),
+                        fontSize: MediaQuery.of(context).size.height / 50),
+                  ),
+                  Text(
+                    'Servicio: \$25.00',
+                    style: TextStyle(
+                        color: Color.fromRGBO(59, 164, 171, 0.9),
+                        fontSize: MediaQuery.of(context).size.height / 50),
+                  )
+                ],
+              )),
           _descriptionTextField(detalles),
           Container(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/30),
-            child: Text('Al aceptar enviarás la ubicación del servicio',style: TextStyle(color:Color.fromRGBO(59, 164, 171, 0.9),fontSize: MediaQuery.of(context).size.height/50),),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 30),
+            child: Text(
+              'Al aceptar enviarás la ubicación del servicio',
+              style: TextStyle(
+                  color: Color.fromRGBO(59, 164, 171, 0.9),
+                  fontSize: MediaQuery.of(context).size.height / 50),
+            ),
           ),
           Container(
-            padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/30),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 FlatButton(
-                  child: Text('Cancelar',style: TextStyle(color:Colors.white),),
-                  onPressed: (){
+                  child: Text(
+                    'Cancelar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
                     cancelar(identificador);
                   },
                   color: Colors.red,
                 ),
                 FlatButton(
-                  child: Text('Aceptar',style: TextStyle(color:Colors.white),),
-                  onPressed: (){
-                    aceptar(identificador,precio,iden2,pedido,prestador);
+                  child: Text(
+                    'Aceptar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    aceptar(identificador, precio, iden2, pedido, prestador);
                   },
                   color: Color.fromRGBO(59, 164, 171, 0.9),
                 )
@@ -218,29 +307,30 @@ class _EsperaPageState extends State<EsperaPage> {
       ),
     );
   }
+
   Widget _descriptionTextField(detalles) {
-  return Container(
-    padding: EdgeInsets.only(left: 10, right: 10),
-    child: TextField(
-        scrollPadding: EdgeInsets.all(20),
-        maxLines: 5,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide:
-                BorderSide(color: Color.fromRGBO(192, 195, 196, .25), width: 0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide:
-                BorderSide(color: Color.fromRGBO(0, 0, 0, .25), width: 0),
-          ),
-          hintText: "$detalles",
-          fillColor: Colors.white,
-          filled: true,
-        )),
-  );
-}
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: TextField(
+          scrollPadding: EdgeInsets.all(20),
+          maxLines: 5,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              borderSide: BorderSide(
+                  color: Color.fromRGBO(192, 195, 196, .25), width: 0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderSide:
+                  BorderSide(color: Color.fromRGBO(0, 0, 0, .25), width: 0),
+            ),
+            hintText: "$detalles",
+            fillColor: Colors.white,
+            filled: true,
+          )),
+    );
+  }
 
   Widget _titleTextField(nombre) {
     return Column(

@@ -33,15 +33,16 @@ class _PasswordPageState extends State<PasswordPage> {
 
     form.save();
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Registrando....'),
-      ));
+      content: Text('Registrando....'),
+    ));
     String celular = prefs.getString('celular');
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     String correo = prefs.getString('correo');
     await Firestore.instance.collection('Usuarios').document().setData({
       'Contraseña': '$_password',
       'Celular': '$celular',
-      'Correo': '$correo'
+      'Correo': '$correo',
+      'Tipo': 'usuario'
     });
     String username = 'merecomiendanmx@gmail.com';
     final smtpServer = SmtpServer('smtp.sendgrid.net',
@@ -611,6 +612,7 @@ float:right !important;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Ingresa tu contraseña'),
         centerTitle: true,

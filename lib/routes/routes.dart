@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/screens/QRpage.dart';
 import 'package:ecommerce/screens/QRpageCotizacion.dart';
 import 'package:ecommerce/screens/QRpageFinalizar.dart';
@@ -38,6 +37,7 @@ import 'package:ecommerce/screens/service_details_presupuesto_page.dart';
 import 'package:ecommerce/screens/servicioEnCursoPage.dart';
 import 'package:ecommerce/screens/servicioEnCursoPageCot.dart';
 import 'package:ecommerce/screens/servicioEnCursoPagePresupuesto.dart';
+import 'package:ecommerce/screens/trabajosImg.dart';
 import 'package:ecommerce/screens/validacion_cel.dart';
 import 'package:ecommerce/widgets/webView_widget.dart';
 import 'package:ecommerce/widgets/webView_widgetCotizacion.dart';
@@ -65,39 +65,43 @@ Map<String, WidgetBuilder> getAplicationRoute() {
     'login': (BuildContext context) => LoginScreen(),
     'search_page': (BuildContext context) => SearchPage(),
     'fast_service_page': (BuildContext context) => HomeServiceDetails(),
-    'web': (BuildContext context)=> GetCurrentURLWebView(),
-    'searchTab' :(BuildContext context)=>SearchTab(),
-    'register2.0' :(BuildContext context)=>Register20Page(),
-    'registroCel2.0'  :(BuildContext context)=>RegistroCel2Page(),
-    'validarCel2.0'   :(BuildContext context)=>ValidarCelPage(),
-    'registroCompletado'    :(BuildContext context)=>RegistroCompletadoPage(),
-    'login2.0'        :(BuildContext context)=>Login2Page(),
-    'passwordPage'    :(BuildContext context)=>PasswordPage(),
-    'correoPage'      :(BuildContext context)=>CorreoPage(),
-    'listaCat'        :(BuildContext context)=>ListaCatPage(),
-    'esperaPage'      :(BuildContext context)=>EsperaPage(),
-    'qrPage'          :(BuildContext context)=>QRPage(),
-    'servicioEnCurso'   :(BuildContext context)=>ServicioEnCursoPage(),
-    'ajustePresupuesto'   :(BuildContext context)=> AjustePresupuestoPage(),
-    'aceptarPresupuesto'    :(BuildContext context) =>AceptarCotizacionPage(),
-    'finalizarServicio'     :(BuildContext context)=>FinalizarServicioPage(),
-    'pagoPage'              :(BuildContext context)=>GetCurrentURLWebView(),
-    'blanco'                :(BuildContext context)=>BlancoPage(),
-    'servicePresupuesto'      :(BuildContext context)=>ServiceDetailsPresupuesto(),
-    'esperaPresupuesto'       :(BuildContext context)=>EsperaPresupuestoPage(),
-    'listaMateriales'         :(BuildContext context)=>ListaMaterialesPage(),
-    'pagoPagePresupuesto'     :(BuildContext context)=>GetCurrentURLWebViewPresupuesto(),
-    'qrPageFinalizar'         :(BuildContext context)=>QRPageFinalizar(),
-    'detallesCotizacion'      :(BuildContext context)=>DetallesCotizacionesPage(),
-    'detalleCotizacion'       :(BuildContext context)=>DetalleCotizacionPage(),
-    'listaMaterialesCotizacion' :(BuildContext context)=>ListaMaterialesCotizacionPage(),
-    'pagoCotizacion'            :(BuildContext context)=>PagoCotizacion(),
-    'qrCotizacion'      :(BuildContext context)=>QRCotizacionPage(),
-    'servicioEnCursoCot'    :(BuildContext context)=>ServicioEnCursoCotPage(),
-    'qrPageFinalizarCot'      :(BuildContext context)=>QRPageFinalizarCot(),
-    'qrPagePresupuesto'       :(BuildContext context)=>QRPagePresupuesto(),
-    'servicioEnCursoPresupuesto'    :(BuildContext context)=>ServicioEnCursoPresupuestoPage(),
-    'qrFinalizarPresupuesto'      :(BuildContext context)=>QRPageFinalizarPresupuesto()
-    
+    'web': (BuildContext context) => GetCurrentURLWebView(),
+    'searchTab': (BuildContext context) => SearchTab(),
+    'register2.0': (BuildContext context) => Register20Page(),
+    'registroCel2.0': (BuildContext context) => RegistroCel2Page(),
+    'validarCel2.0': (BuildContext context) => ValidarCelPage(),
+    'registroCompletado': (BuildContext context) => RegistroCompletadoPage(),
+    'login2.0': (BuildContext context) => Login2Page(),
+    'passwordPage': (BuildContext context) => PasswordPage(),
+    'correoPage': (BuildContext context) => CorreoPage(),
+    'listaCat': (BuildContext context) => ListaCatPage(),
+    'esperaPage': (BuildContext context) => EsperaPage(),
+    'qrPage': (BuildContext context) => QRPage(),
+    'servicioEnCurso': (BuildContext context) => ServicioEnCursoPage(),
+    'ajustePresupuesto': (BuildContext context) => AjustePresupuestoPage(),
+    'aceptarPresupuesto': (BuildContext context) => AceptarCotizacionPage(),
+    'finalizarServicio': (BuildContext context) => FinalizarServicioPage(),
+    'pagoPage': (BuildContext context) => GetCurrentURLWebView(),
+    'blanco': (BuildContext context) => BlancoPage(),
+    'servicePresupuesto': (BuildContext context) => ServiceDetailsPresupuesto(),
+    'esperaPresupuesto': (BuildContext context) => EsperaPresupuestoPage(),
+    'listaMateriales': (BuildContext context) => ListaMaterialesPage(),
+    'pagoPagePresupuesto': (BuildContext context) =>
+        GetCurrentURLWebViewPresupuesto(),
+    'qrPageFinalizar': (BuildContext context) => QRPageFinalizar(),
+    'detallesCotizacion': (BuildContext context) => DetallesCotizacionesPage(),
+    'detalleCotizacion': (BuildContext context) => DetalleCotizacionPage(),
+    'listaMaterialesCotizacion': (BuildContext context) =>
+        ListaMaterialesCotizacionPage(),
+    'pagoCotizacion': (BuildContext context) => PagoCotizacion(),
+    'qrCotizacion': (BuildContext context) => QRCotizacionPage(),
+    'servicioEnCursoCot': (BuildContext context) => ServicioEnCursoCotPage(),
+    'qrPageFinalizarCot': (BuildContext context) => QRPageFinalizarCot(),
+    'qrPagePresupuesto': (BuildContext context) => QRPagePresupuesto(),
+    'servicioEnCursoPresupuesto': (BuildContext context) =>
+        ServicioEnCursoPresupuestoPage(),
+    'qrFinalizarPresupuesto': (BuildContext context) =>
+        QRPageFinalizarPresupuesto(),
+    'trabajosImg': (BuildContext context) => TrabajosImg()
   };
 }
